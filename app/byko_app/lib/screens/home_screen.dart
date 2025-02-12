@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: AgentDropdown(),
-          backgroundColor: Color(0xFF0067a4),
+          backgroundColor: Color.fromARGB(255, 24, 25, 23),
         ),
         body: ChatScreen(),
       ),

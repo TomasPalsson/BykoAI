@@ -8,7 +8,8 @@ class ChatBubble extends StatelessWidget {
   final bool isUser;
   final bool isLoading;
   final bool last;
-  const ChatBubble({super.key, required this.message, required this.isUser, required this.last, this.isLoading = false});
+  final String timeTaken;
+  const ChatBubble({super.key, required this.message, required this.isUser, required this.last, this.isLoading = false, this.timeTaken = "0"});
 
   List<TextSpan> _parseMessage(BuildContext context) {
     final List<TextSpan> spans = [];
@@ -59,44 +60,50 @@ class ChatBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = true;
+    String aiText = isLoading ? "AI" : "AI ($timeTaken ms)";
     
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-      child: Align(
-        alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width * 0.75,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+          child: Align(
+            alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+            child: Text(isUser ? "You" : aiText, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.grey[600])),
           ),
-          child: Container(
-            decoration: BoxDecoration(
-              color: isUser
-                  ? (const Color(0xFF2C2C2C))
-                  : (const Color(0xFF3D3416)),
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(16),
-                topRight: const Radius.circular(16),
-                bottomLeft: isUser ? const Radius.circular(16) : Radius.zero,
-                bottomRight: isUser ? Radius.zero : const Radius.circular(16),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12.0),
+          child: Align(
+            alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: MediaQuery.of(context).size.width * 0.75,
               ),
-              border: Border.all(
-                color: const Color(0xFFfecf35),
-                width: 1.5,
-              ),
-            ),
-            padding: const EdgeInsets.all(16.0),
-            child: isLoading && last ? LoadingAnimationWidget.waveDots(color: Colors.white, size: 20) : RichText(
-              text: TextSpan(
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  height: 1.3,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(16),
+                    topRight: const Radius.circular(16),
+                    bottomLeft: isUser ? const Radius.circular(16) : Radius.zero,
+                    bottomRight: isUser ? Radius.zero : const Radius.circular(16),
+                  ),
+                  border: Border.all(
+                    color: isUser ? const Color(0xFFfecf35) : const Color.fromARGB(255, 37, 150, 190),
+                    width: 1.5,
+                  ),
                 ),
-                children: _parseMessage(context),
+                padding: const EdgeInsets.all(16.0),
+                child: isLoading && last ? LoadingAnimationWidget.waveDots(color: Colors.white, size: 20) : RichText(
+                  text: TextSpan(
+                    style: Theme.of(context).textTheme.bodyMedium,  
+                    children: _parseMessage(context),
+                  ),
+                ),
               ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

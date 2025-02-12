@@ -19,10 +19,10 @@ class MyApp extends StatelessWidget {
   }
 
   ThemeData get theme => ThemeData(
-    primaryColor: Color(0xFF0067a4),
+    primaryColor: Color(0xFF2B2C28),
     scaffoldBackgroundColor: Color(0xFF2B2C28),
     textTheme: TextTheme(
-      bodyMedium: GoogleFonts.roboto(
+      bodyMedium: GoogleFonts.rubik(
         fontSize: 16,
         color: Colors.white,
       ),

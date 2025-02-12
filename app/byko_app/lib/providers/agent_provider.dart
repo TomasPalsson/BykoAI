@@ -13,14 +13,27 @@ class AgentProvider extends ChangeNotifier {
     _agent = agent;
     Uri uri = Uri.parse('http://192.168.0.129:8000/set_agent');
     print(uri);
-    final response = await http.post(
-      uri,
-      headers: {'Content-Type': 'application/json'},
+    try {
+      final response = await http.post(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': '*/*',
+        },
         body: json.encode({
           'agentId': agent.agentInfo.agnetID,
           'agentAliasId': agent.agentInfo.agentAliasID,
         }),
       );
+      print("Response status: ${response.statusCode}");
+      print("Response body: ${response.body}");
+      if (response.statusCode != 200) {
+        throw Exception('Failed to set agent: ${response.statusCode}');
+      }
+    } catch (e) {
+      print("Error setting agent: $e");
+      rethrow;
+    }
     notifyListeners();
   }
 }

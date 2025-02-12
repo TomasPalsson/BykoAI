@@ -9,7 +9,7 @@ enum Agent {
 extension GetAgentInfo on Agent {
   AgentInfo get agentInfo {
     if (this == Agent.byko) {
-      return AgentInfo(agnetID: '6LFCK7ERMT', agentAliasID: 'YFV7BCG0NA');
+      return AgentInfo(agnetID: '6LFCK7ERMT', agentAliasID: 'H8ARGIHST2');
     }
     if (this == Agent.husasmidjan) {
       return AgentInfo(agnetID: 'TLIBDZZHNP', agentAliasID: 'GCC0VTKBAH');

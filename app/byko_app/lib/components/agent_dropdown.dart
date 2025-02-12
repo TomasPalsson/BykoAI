@@ -27,6 +27,7 @@ class AgentDropdown extends StatelessWidget {
             );
           }).toList(),
           onChanged: (Agent? newValue) {
+            print("newValue: $newValue");
             if (newValue != null) {
               Provider.of<ChatProvider>(context, listen: false).clearChat();
               Provider.of<AgentProvider>(context, listen: false).setAgent(newValue);

@@ -13,6 +13,8 @@ class ChatProvider extends ChangeNotifier {
   bool _isLoading = false;
   List<Message> get messages => List.unmodifiable(_messages);
   bool get isLoading => _isLoading;
+  int _timeTaken = 0;
+  int get timeTaken => _timeTaken;
 
   String? _sessionId;
   StreamSubscription? _subscription;
@@ -30,6 +32,7 @@ class ChatProvider extends ChangeNotifier {
   }
 
   Future<void> sendMessage(String content) async {
+    final stopwatch = Stopwatch()..start();
     _isLoading = true;
     notifyListeners();
     _sessionId ??= const Uuid().v4();
@@ -74,6 +77,8 @@ class ChatProvider extends ChangeNotifier {
               }
         },
         onError: (error) {
+          stopwatch.stop();
+          _timeTaken = stopwatch.elapsedMilliseconds;
           debugPrint('Error receiving SSE: $error');
           _isLoading = false;
           notifyListeners();
@@ -85,6 +90,8 @@ class ChatProvider extends ChangeNotifier {
           );
         },
         onDone: () {
+          stopwatch.stop();
+          _timeTaken = stopwatch.elapsedMilliseconds;
           debugPrint('SSE stream completed. Total chunks received: $chunkCount');
           _isLoading = false;
           notifyListeners();

@@ -21,11 +21,12 @@ class ChatScreen extends StatelessWidget {
                   builder: (context, chatProvider, child) {
                     return ListView.builder(
                       reverse: false,
-                      itemBuilder: (context, index) => index == chatProvider.messages.length ? const ChatBubble(message: "", isUser: false, last: true, isLoading: true) : ChatBubble(
+                      itemBuilder: (context, index) => index == chatProvider.messages.length ?
+                       const ChatBubble(message: "", isUser: false, last: true, isLoading: true) : ChatBubble(
                         message: chatProvider.messages[index].content,
                         isUser: chatProvider.messages[index].isUser,
                         last: index == chatProvider.messages.length,
-                      ),
+                        timeTaken: chatProvider.timeTaken.toString()),
                       itemCount: chatProvider.messages.length + (chatProvider.isLoading ? 1 : 0),
                       // Add padding at the bottom to prevent messages from being hidden behind input
                       padding: EdgeInsets.only(bottom: 40),
