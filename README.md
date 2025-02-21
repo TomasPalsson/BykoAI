@@ -1,6 +1,9 @@
 # BykoAI
-[] Flutter App - Byko Style
-[] tengja inn select agent
-[] bæta við fleiri agentum
-    [] Multiagent
-    [] Agent tengjgdur við netið
+
+# # To run
+1. Download flutter [here](https://docs.flutter.dev/get-started/install)
+2. Run the app
+   ```bash
+   cd app/byko_app && flutter run -d chrome
+   ```
+
