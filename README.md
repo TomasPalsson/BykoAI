@@ -1,6 +1,6 @@
 # BykoAI
 
-# # To run
+## To run
 1. Download flutter [here](https://docs.flutter.dev/get-started/install)
 2. Run the app
    ```bash
