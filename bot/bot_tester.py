@@ -4,7 +4,7 @@ import json
 
 query = "Who is the president of iceland"
 params = {
-        "api_key": "9d659b4c705628ceda9721a3cce353e8aef75363d4b77754e7976c57731650e2",
+        "api_key": "...",
         "engine": "google",
         "q": query,
     }
